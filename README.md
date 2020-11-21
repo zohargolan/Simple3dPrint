@@ -14,19 +14,23 @@ The application is meant to be "simple" so (initially at least) there is no plan
 The application is written in python 3.x with optionally a TK/Inter GUI (as a future improvement).
 
 ## Command line parameters
-Simple3dPrint comPort [command] [< sourceFilename >] [< destFilename8.3 >]
+Simple3dPrint [comPort] [command] [< sourceFilename >] [< destFilename8.3 >]
 
-comPort           The serial communication port name (COMx for windows)<br>
-sourceFilename    Source gcode filename on the host PC<br>
-destFilename8.3   Destination gcode filename **(must be in 8.3 format)**<br>
-command           The command to send to the printer<br>
+| Parameter       | Description                                            |
+| --------------- | ------------------------------------------------------ |
+| comPort         | The serial communication port name (COMx for windows)  |
+| sourceFilename  | Source gcode filename on the host PC                   |
+| destFilename8.3 | Destination gcode filename **(must be in 8.3 format)** | 
+| command         | The command to send to the printer                     |
 
 ### Commands
--SL               SD card list<br>
--SU               SD card upload<br>
--SUP              SD card upload and print<br>
--SP               SD card print only<br>
--P                direct print through serial port<br>
+| Command  | Description                       |
+| -------- | --------------------------------- |
+| -SL      | SD card list                      |
+| -SU      | SD card upload                    |
+| -SUP     | SD card upload and print          | 
+| -SP      | SD card print only                |
+| -P       | Direct print through serial port  |
 
 #### SD Card List
 Prints the list of gcode files in the printer's SD card
