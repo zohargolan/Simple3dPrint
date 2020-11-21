@@ -14,7 +14,7 @@ The application meant to be "simple" so (initially at least) there is no plan to
 the application is written in python 3.x with optionally a TK/Inter GUI interface (as a future improvement)
 
 Command line parameters
-Simple3dPrint comPort [-SL] [-SU] [-SUP] [-SP] [-P] [<sourceFilename> ] [<destFilename8.3>]
+Simple3dPrint comPort [-SL] [-SU] [-SUP] [-SP] [-P] [<sourceFilename>] [<destFilename8.3>]
 
 comPort           The serial communication port name (COMx for windows)
 sourceFilenae     source gcode filename on the host PC
