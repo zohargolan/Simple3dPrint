@@ -27,6 +27,7 @@ Simple3dPrint [comPort] [command] [< sourceFilename >] [< destFilename8.3 >]
 | Command  | Description                       |
 | -------- | --------------------------------- |
 | -SL      | SD card list                      |
+| -SD      | SD card file delete               |
 | -SU      | SD card upload                    |
 | -SUP     | SD card upload and print          | 
 | -SP      | SD card print only                |
@@ -35,6 +36,10 @@ Simple3dPrint [comPort] [command] [< sourceFilename >] [< destFilename8.3 >]
 #### SD Card List
 Prints the list of gcode files in the printer's SD card.<br>
 Ex: Simple3dPrint COM5 -SL
+
+#### SD Card file delete
+Delete a file from the printer's SD card.<br>
+Ex: Simple3dPrint COM5 -SD test.gco
 
 #### SD Card Upload
 Uploads a file to the printer's SD card. It takes an optional destination filename. Not adding the destination filename will override the contents of model.gco with the new file.<br>
