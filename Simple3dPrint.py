@@ -16,7 +16,7 @@ class Simple3dPrint:
     ERROR_IN_SAVE_FILENAME_RESPONSE         = 8
     ERROR_IN_CLOSE_FILENAME_RESPONSE        = 9
     ERROR_OPEN_SD_CARD_FILE_FOR_PRINTING    = 10
-
+    ERROR_DELETING_SD_CARD_FILE             = 11
 
     def __init__(self,comPort):
         self.comPort = comPort 
@@ -57,6 +57,24 @@ class Simple3dPrint:
         for line in responseLines:
             if not line.startswith("Begin") and not line.startswith("End") and not line.startswith("ok"):
                 print(line)
+        return self.OK
+
+    def DeleteSdFile(self, DestFilename):
+        #Check validity of destination file
+        error = self.check8_3_filename(DestFilename)
+        if error != self.OK:
+            return error
+
+        #flush recieve buffer
+        time.sleep(2)
+        response = self.ser.read(20000).decode() 
+
+        #Start the print
+        self.ser.write(("M30 " + DestFilename + "\r").encode())
+        response = self.ser.read(200).decode() 
+        if "failed" in response.lower():
+            return self.ERROR_DELETING_SD_CARD_FILE    
+        
         return self.OK
     
     def UploadFile(self, SourceFileName, DestFilename="model.gco"):
@@ -153,6 +171,9 @@ def printHelp():
     print("Simple3dPrint COM5 -SL")
     print("prints the list of gcode files in the printer's SD card")
     print()
+    print("Simple3dPrint COM5 -SD test.gco")
+    print("Delete a file from the 3d printer's SD card")
+    print()
     print("Simple3dPrint COM5 -SU test_Model_1234.gcode")
     print("Upload a file test_Model_1234.gcode to the printer's SD card to destination filename model.gco")
     print()
@@ -243,7 +264,7 @@ if __name__ == "__main__":
                 print("OK")
 
         elif len(sys.argv) == 5:
-            print("Upload file " +  sys.argv[3] + " to  SD card file " +  +  sys.argv[4])
+            print("Upload file " +  sys.argv[3] + " to  SD card file " +  sys.argv[4])
             destinationFilename = sys.argv[4]
 
             error = s3p.UploadFile(sys.argv[3], sys.argv[4])
