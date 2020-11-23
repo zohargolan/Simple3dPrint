@@ -32,16 +32,15 @@ class Simple3dPrint:
     def check8_3_filename(self, filename):
         #Check validity of destination file
         try:
-            if filename != "model.gco":
-                filenameParts = filename.split(".")
-                if len(filenameParts) > 2:
-                    return self.ERROR_DEST_FILENAME_MORE_THAN_2_FIELDS
-                elif len(filenameParts[0]) > 8:
-                    return self.ERROR_DEST_FILENAME_BASE_MORE_THAN_8
-                elif len(filenameParts[1]) > 3:
-                    return self.ERROR_DEST_FILENAME_EXT_MORE_THAN_3
-                else:
-                    return self.OK
+            filenameParts = filename.split(".")
+            if len(filenameParts) > 2:
+                return self.ERROR_DEST_FILENAME_MORE_THAN_2_FIELDS
+            elif len(filenameParts[0]) > 8:
+                return self.ERROR_DEST_FILENAME_BASE_MORE_THAN_8
+            elif len(filenameParts[1]) > 3:
+                return self.ERROR_DEST_FILENAME_EXT_MORE_THAN_3
+            else:
+                return self.OK    
         except:
             return self.ERROR_DEST_FILENAME_NOT_STRING
 
@@ -69,7 +68,7 @@ class Simple3dPrint:
         time.sleep(2)
         response = self.ser.read(20000).decode() 
 
-        #Start the print
+        #Start the file delete
         self.ser.write(("M30 " + DestFilename + "\r").encode())
         response = self.ser.read(200).decode() 
         if "failed" in response.lower():
@@ -203,7 +202,6 @@ if __name__ == "__main__":
     error = s3p.openComPort()
     if error != s3p.OK:
         print("Error openning com port! error code: " + str(error))
-        printHelp()
         sys.exit() 
 
     # SD list command
@@ -220,6 +218,24 @@ if __name__ == "__main__":
             sys.exit() 
         else:
             print("OK")
+
+    # SD delete command
+    elif str(sys.argv[2]).upper() == "-SD":
+        if len(sys.argv) == 4:
+            print("Delete " +  sys.argv[3] + " from SD card")
+
+            error = s3p.DeleteSdFile(sys.argv[3])    
+            if error != s3p.OK:
+                print("Error! error code: " + str(error))
+                sys.exit()
+            else:
+                print("OK")
+                sys.exit()
+        
+        else:
+            print("Error in command line parameter!")
+            printHelp()
+            sys.exit()
 
     #SD upload command
     elif str(sys.argv[2]).upper() == "-SU":
