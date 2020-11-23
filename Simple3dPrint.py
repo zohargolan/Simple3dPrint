@@ -69,7 +69,7 @@ class Simple3dPrint:
         response = self.ser.read(20000).decode() 
 
         #Start the file delete
-        self.ser.write(("M30 " + DestFilename + "\r").encode())
+        self.ser.write(("M30 " + DestFilename.lower() + "\r").encode())
         response = self.ser.read(200).decode() 
         if "failed" in response.lower():
             return self.ERROR_DELETING_SD_CARD_FILE    
@@ -151,7 +151,7 @@ class Simple3dPrint:
         response = self.ser.read(20000).decode() 
 
         #Start the print
-        self.ser.write(("M23 " + DestFilename + "\r").encode())
+        self.ser.write(("M23 " + DestFilename.lower() + "\r").encode())
         response = self.ser.read(200).decode() 
         if "failed" in response.lower():
             return self.ERROR_OPEN_SD_CARD_FILE_FOR_PRINTING    
