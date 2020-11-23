@@ -97,7 +97,7 @@ class Simple3dPrint:
         response = self.ser.read(1000)
 
         #Start the file save to filename model.gco
-        self.ser.write(("M28 " + DestFilename + "\r").encode())
+        self.ser.write(("M28 " + DestFilename.lower() + "\r").encode())
         response = self.ser.read(200).decode() 
         if not 'ok' in response:
             return self.ERROR_IN_SAVE_FILENAME_RESPONSE
