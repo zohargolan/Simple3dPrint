@@ -164,6 +164,8 @@ class Simple3dPrint:
 def printHelp():
     print()
     print()
+    print("Simple3dPrint version 0.0.1")
+    print("----------------------------")
     print("Simple3dPrint comPort [-SL] [-SU] [-SUP] [-SP] [-P] [< sourceFilename >] [< destFilename8.3 >]")
     print()
     print("Examples:")
